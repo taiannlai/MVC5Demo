@@ -33,6 +33,7 @@ namespace MVC5Demo.Controllers
         {
             if (ModelState.IsValid)
             {
+                person.Id = data.Max(p => p.Id) + 1;
                 data.Add(person);
                 return RedirectToAction("Index");
             }
@@ -67,7 +68,7 @@ namespace MVC5Demo.Controllers
         }
 
         [HttpPost]
-        public ActionResult Delete(int id, Person person)
+        public ActionResult Delete(int id, FormCollection form)
         {
 
                 //                我自己寫的
