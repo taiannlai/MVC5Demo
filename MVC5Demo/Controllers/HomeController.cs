@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Http.Validation;
 using System.Web.Mvc;
 
 namespace MVC5Demo.Controllers
@@ -26,5 +27,12 @@ namespace MVC5Demo.Controllers
 
             return View();
         }
+
+        public ActionResult Test()
+        {
+            return View();
+        }
+
+
     }
 }
