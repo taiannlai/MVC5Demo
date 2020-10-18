@@ -9,7 +9,7 @@ namespace MVC5Demo.Models
     public class Person
     {
         public int Id { get; set; }
-        [Required(ErrorMessage ="請輸入姓名")]
+        [Required(ErrorMessageResourceName = "Person_Name_Required", ErrorMessageResourceType = typeof(Resource1))]
         [MaxLength(5,ErrorMessage ="姓名長度最長{1}")]
         [MinLength(2,ErrorMessage = "姓名長度最短{1}")]
         public string Name { get; set; }

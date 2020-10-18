@@ -29,6 +29,7 @@ namespace MVC5Demo.Controllers
 
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Create(Person person)
         {
             if (ModelState.IsValid)
@@ -47,6 +48,7 @@ namespace MVC5Demo.Controllers
             return View(data.FirstOrDefault(p => p.Id == id));
         }
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Edit(int id, Person person)
         {
 
