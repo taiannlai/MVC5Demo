@@ -59,5 +59,42 @@ namespace MVC5Demo.Controllers
 
             return View(person);
         }
+
+        public ActionResult Delete(int id)
+        {
+
+            return View(data.FirstOrDefault(p => p.Id == id));
+        }
+
+        [HttpPost]
+        public ActionResult Delete(int id, Person person)
+        {
+            if (ModelState.IsValid)
+            {
+                var one = data.FirstOrDefault(p => p.Id == id);
+                data.Remove(one);
+                return RedirectToAction("Index");
+            }
+
+            return View(person);
+        }
+
+        public ActionResult Details(int id)
+        {
+
+            return View(data.FirstOrDefault(p => p.Id == id));
+        }
+
+        [HttpPost]
+        public ActionResult Details(int id, Person person)
+        {
+            if (ModelState.IsValid)
+            {
+
+                return RedirectToAction("Index");
+            }
+
+            return View(data);
+        }
     }
 }
