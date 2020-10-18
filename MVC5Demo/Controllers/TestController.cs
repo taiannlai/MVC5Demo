@@ -69,14 +69,13 @@ namespace MVC5Demo.Controllers
         [HttpPost]
         public ActionResult Delete(int id, Person person)
         {
-            if (ModelState.IsValid)
-            {
-                var one = data.FirstOrDefault(p => p.Id == id);
-                data.Remove(one);
-                return RedirectToAction("Index");
-            }
 
-            return View(person);
+                //                我自己寫的
+                //                var one = data.FirstOrDefault(p => p.Id == id);
+                //                data.Remove(one);
+                data.Remove(data.FirstOrDefault(p => p.Id == id));
+                return RedirectToAction("Index");
+
         }
 
         public ActionResult Details(int id)
