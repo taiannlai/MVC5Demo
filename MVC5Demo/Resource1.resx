@@ -120,4 +120,7 @@
   <data name="Person_Name_Required" xml:space="preserve">
     <value>請輸入姓名</value>
   </data>
+  <data name="Person_Year_Required" xml:space="preserve">
+    <value>1最少需在{1}歲以上，{2}歲以下</value>
+  </data>
 </root>

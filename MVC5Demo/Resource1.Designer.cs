@@ -68,5 +68,14 @@ namespace MVC5Demo {
                 return ResourceManager.GetString("Person_Name_Required", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   查詢類似 1最少需在{1}歲以上，{2}歲以下 的當地語系化字串。
+        /// </summary>
+        internal static string Person_Year_Required {
+            get {
+                return ResourceManager.GetString("Person_Year_Required", resourceCulture);
+            }
+        }
     }
 }
