@@ -18,8 +18,7 @@ namespace MVC5Demo.Controllers
         }
         public ActionResult Create()
         {
-            ViewBag.InstructorID = new SelectList(db.Person, "ID", "FirstName");
-
+            ViewBag.InstructorID = new SelectList(db.Person.Where(c => c.Discriminator == "Instructor"), "ID", "FirstName");
             return View();
         }
         [HttpPost]
@@ -31,7 +30,82 @@ namespace MVC5Demo.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.InstructorID = new SelectList(db.Person, "ID", "FirstName");
+            ViewBag.InstructorID = new SelectList(db.Person.Where(c => c.Discriminator == "Instructor"), "ID", "FirstName");
+            return View(department);
+        }
+        public ActionResult Edit(int? id)
+        {
+            if (!id.HasValue)
+            {
+                return HttpNotFound();
+            }
+
+            ViewBag.InstructorID = new SelectList(db.Person.Where(c => c.Discriminator == "Instructor"), "ID", "FirstName");
+
+            return View(db.Department.Find(id.Value));
+        }
+        [HttpPost]
+        public ActionResult Edit(int id, Department department)
+        {
+            if (ModelState.IsValid)
+            {
+                var item = db.Department.Find(id);
+
+                item.Name = department.Name;
+                item.Budget = department.Budget;
+                item.StartDate = department.StartDate;
+                item.InstructorID = department.InstructorID;
+                db.SaveChanges();
+
+                return RedirectToAction("Index");
+            }
+            ViewBag.InstructorID = new SelectList(db.Person.Where(c => c.Discriminator == "Instructor"), "ID", "FirstName");
+
+            return View(db.Department.Find(id));
+        }
+        public ActionResult Delete(int? id)
+        {
+            if (!id.HasValue)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.InstructorID = new SelectList(db.Person.Where(c => c.Discriminator == "Instructor"), "ID", "FirstName");
+
+            return View(db.Department.Find(id.Value));
+        }
+        [HttpPost]
+        public ActionResult Delete(int id, FormCollection form)
+        {
+            var item = db.Department.Single(c => c.DepartmentID == id);
+            if (ModelState.IsValid)
+            {
+
+                db.Department.Remove(item);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+
+            ViewBag.InstructorID = new SelectList(db.Person.Where(c => c.Discriminator == "Instructor"), "ID", "FirstName");
+
+            return View(db.Department.Find(id));
+        }
+        public ActionResult Details(int? id)
+        {
+            if (!id.HasValue)
+            {
+                return HttpNotFound();
+            }
+
+            return View(db.Department.Find(id.Value));
+        }
+        [HttpPost]
+        public ActionResult Detials(int? id, Department department)
+        {
+            if (ModelState.IsValid)
+            {
+
+                return RedirectToAction("Index");
+            }
 
             return View(department);
         }
