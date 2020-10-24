@@ -39,7 +39,7 @@ namespace MVC5Demo.Controllers
         // GET: Courses/Create
         public ActionResult Create()
         {
-            ViewBag.DepartmentID = new SelectList(db.Department, "DepartmentID", "Name");
+            ViewBag.InstructorID = new SelectList(db.Person, "ID", "FirstName");
             return View();
         }
 
@@ -57,7 +57,7 @@ namespace MVC5Demo.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.DepartmentID = new SelectList(db.Department, "DepartmentID", "Name", course.DepartmentID);
+            ViewBag.InstructorID = new SelectList(db.Person, "ID", "FirstName");
             return View(course);
         }
 

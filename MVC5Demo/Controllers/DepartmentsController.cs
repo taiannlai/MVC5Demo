@@ -16,6 +16,24 @@ namespace MVC5Demo.Controllers
 
             return View(db.Department.ToList());
         }
+        public ActionResult Create()
+        {
+            ViewBag.InstructorID = new SelectList(db.Person, "ID", "FirstName");
 
+            return View();
+        }
+        [HttpPost]
+        public ActionResult Create(Department department)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Department.Add(department);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            ViewBag.InstructorID = new SelectList(db.Person, "ID", "FirstName");
+
+            return View(department);
+        }
     }
 }
