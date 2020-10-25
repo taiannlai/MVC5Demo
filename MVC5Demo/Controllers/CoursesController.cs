@@ -56,8 +56,8 @@ namespace MVC5Demo.Controllers
             {
                 var courseitem = db.Course.Create();
                 courseitem.InjectFrom(course);
-                //db.Course.Add(course);
-                db.Course.Add(courseitem);
+                //db.Course.Add(course); //因為丟進來的是viewmode，所以會接不到資料
+                db.Course.Add(courseitem); //新增一筆資料需要用add
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
