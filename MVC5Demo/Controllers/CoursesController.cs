@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using MVC5Demo.Models;
+using Omu.ValueInjecter;
 
 namespace MVC5Demo.Controllers
 {
@@ -39,7 +40,8 @@ namespace MVC5Demo.Controllers
         // GET: Courses/Create
         public ActionResult Create()
         {
-            ViewBag.InstructorID = new SelectList(db.Person, "ID", "FirstName");
+            ViewBag.DepartmentID = new SelectList(db.Department,"DepartmentID", "Name");
+
             return View();
         }
 
@@ -48,16 +50,19 @@ namespace MVC5Demo.Controllers
         // 如需詳細資料，請參閱 https://go.microsoft.com/fwlink/?LinkId=317598。
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "CourseID,Title,Credits,DepartmentID")] Course course)
+        public ActionResult Create(CourseCreate course)
         {
             if (ModelState.IsValid)
             {
-                db.Course.Add(course);
+                var courseitem = db.Course.Create();
+                courseitem.InjectFrom(course);
+                //db.Course.Add(course);
+                db.Course.Add(courseitem);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.InstructorID = new SelectList(db.Person, "ID", "FirstName");
+            ViewBag.DepartmentID = new SelectList(db.Department, "DepartmentID", "Name");
             return View(course);
         }
 
@@ -82,11 +87,12 @@ namespace MVC5Demo.Controllers
         // 如需詳細資料，請參閱 https://go.microsoft.com/fwlink/?LinkId=317598。
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "CourseID,Title,Credits,DepartmentID")] Course course)
+        public ActionResult Edit(int id, CourseEdit course)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(course).State = EntityState.Modified;
+                var courseitem = db.Course.Find(id);
+                courseitem.InjectFrom(course);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
