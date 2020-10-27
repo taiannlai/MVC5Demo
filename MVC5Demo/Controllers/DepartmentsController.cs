@@ -52,7 +52,7 @@ namespace MVC5Demo.Controllers
             if (ModelState.IsValid)
             {
                 var item = db.Department.Find(id);
-                item.InjectFrom(department);
+                item.InjectFrom(department);  //會比對兩個model是否型別一致！不一至就不會被寫入
                 //item.Name = department.Name;
                 //item.Budget = department.Budget;
                 //item.StartDate = department.StartDate;
