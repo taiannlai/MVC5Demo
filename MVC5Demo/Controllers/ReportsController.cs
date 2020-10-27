@@ -68,5 +68,17 @@ namespace MVC5Demo.Controllers
             ViewBag.SQL = sb.ToString();
             return View("CoursesReport1", data);
         }
+        public ActionResult CoursesReport4(int id)
+        {
+            var data = db.GetCourseReport(id).First();
+            ViewBag.SQL = sb.ToString();
+            return View(data);
+        }
+        public ActionResult CoursesReport5(int id)
+        {
+            var data = db.Database.SqlQuery<GetCourseReport_Result>("EXEC GetCourseReport @p0", id).First();
+            ViewBag.SQL = sb.ToString();
+            return View("CoursesReport4", data);
+        }
     }
 }
